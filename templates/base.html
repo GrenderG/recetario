@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recetario - {% block titulo %}{% endblock %}</title>
+    <link rel='stylesheet' href='{{ STATIC_URL }}css/base.css'>
+    <link rel="shortcut icon" href='{{ STATIC_URL }}img/icon.ico'>
+    {% block style_css %}{% endblock %}
+    <script src="{{ STATIC_URL }}js/jquery-1.11.2.min.js"></script>
+    <script src="{{ STATIC_URL }}js/demo.js"></script>
+</head>
+<body>
+    <header>
+        {% block encabezado %}{% endblock %}
+    <nav>
+        <ul id='menu'>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/usuarios">Usuarios registrados</a></li>
+            <li><a href="/usuarios/nuevo">Registrar usuario</a></li>
+            <li><a href="/ingresar">Ingresar usuario</a></li>
+            <li><a href="/recetario">Recetas</a></li>
+            <li><a href="/comenta">Comenta</a></li>
+            <li><a href="/sobre">Sobre</a></li>
+            <li><a href="/contacto">Contáctanos</a></li>
+            <li><a href="/cerrar">Cerrar sesión</a></li>
+        </ul>
+    </nav>
+    <hr/>
+    </header>
+    <section class="contenido">
+        {% block contenido %}{% endblock %}
+    </section>
+    <footer>
+        <p>Proyecto de ejemplo</p>
+    </footer>
+</body>
+</html>
