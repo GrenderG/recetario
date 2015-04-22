@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
+{% block encabezado %}
+{% endblock %}
 {% block contenido %}
-    <form id="formulario" method="post" action="">{%  csrf_token %}
+    <script>
+        $(function () {
+            var li = $('#contacto');
+            li.addClass("active");
+        });
+    </script>
+    <form id="formulario" method="post" action="">{% csrf_token %}
         {{ formulario.as_p }}
-        <p><input type="submit" value="Confirmar"/></p>
+        <p><input class="btn btn-default" type="submit" value="Confirmar"/></p>
     </form>
 {% endblock %}

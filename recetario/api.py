@@ -22,6 +22,20 @@ class UserResource(ModelResource):
         return bundle
 
 
+class UserCreationResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        allowed_methods = ['post']
+        resource_name = 'create_user'
+
+    def obj_create(self, bundle, **kwargs):
+        user = User.objects.create_user(username=bundle.data["username"], email=bundle.data["email"],
+                                        password=bundle.data["password"])
+        bundle.obj = user
+        return self.full_hydrate(bundle)
+        # return super(UserCreationResource, self).obj_create(bundle, user=bundle.request.user)
+
+
 class RecetaResource(ModelResource):
     usuario = fields.ForeignKey(UserResource, 'usuario', full=False, null=True, blank=True)
 

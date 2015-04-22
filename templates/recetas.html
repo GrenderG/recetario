@@ -2,19 +2,24 @@
 {% block titulo %} Recetas registradas {% endblock %}
 
 {% block encabezado %}
-    <h1>Nuestras recetas</h1>
 {% endblock %}
 
 {% block contenido %}
+    <script>
+        $(function () {
+            var li = $('#recetas');
+            li.addClass("active");
+        });
+    </script>
     <h2><a href="/recetario/nueva">Agregar una receta</a></h2>
-<ul>
-    {% for dato in datos %}
-        <li>
-            <a href="{% url "principal.views.detalle_receta" dato.id %}">{{ dato.titulo }}</a>
-            <img src="{{ MEDIA_URL }}{{ dato.imagen }}">
-        </li>
-    {% empty %}
-        <li>Aún no hay recetas registradas</li>
-    {% endfor %}
-</ul>
+    <table class="table">
+        {% for dato in datos %}
+            <tr>
+                <td><a href="{% url "principal.views.detalle_receta" dato.id %}">{{ dato.titulo }}</a></td>
+                <td><img src="{{ MEDIA_URL }}{{ dato.imagen }}"></td>
+            </tr>
+        {% empty %}
+            <li>Aún no hay recetas registradas</li>
+        {% endfor %}
+    </table>
 {% endblock %}

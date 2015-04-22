@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% block titulo %}Nuevo usuario{% endblock %}
 {% block encabezado %}
-    <h1>Registra un nuevo usuario</h1>
 {% endblock %}
 {% block contenido %}
+    <script>
+        $(function () {
+            var li = $('#registrar_u');
+            li.addClass("active");
+
+            $(":input").each(function () {
+                var input = $(this);
+                input.addClass('form-control');
+            });
+        });
+
+    </script>
     <form id='formulario' method='post' action=''>{% csrf_token %}
-    <table>{{ formulario }}</table>
-    <p><input type='submit' value='Registrar'/></p>
+        <table class="table">{{ formulario }}</table>
+        <p><input class="btn btn-default" type='submit' value='Registrar'/></p>
     </form>
 {% endblock %}

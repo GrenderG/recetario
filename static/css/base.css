@@ -21,3 +21,9 @@ nav ul li a{
 .par { 
 	background-color:#5ACC5A; 
 }
+
+table, th, td {
+   border: 1px solid green;
+   margin-left: auto;
+   margin-right: auto;
+}

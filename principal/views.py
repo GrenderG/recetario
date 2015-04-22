@@ -10,11 +10,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 
-def sobre(request):
-    html = "<html><body>Proyecto de ejemplo</body></html>"
-    return HttpResponse(html)
-
-
 def inicio(request):
     recetas = Receta.objects.all()
     return render_to_response('inicio.html', {'recetas': recetas}, context_instance=RequestContext(request))
@@ -33,11 +28,22 @@ def lista_recetas(request):
 
 
 def detalle_receta(request, id_receta):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/ingresar')
     dato = get_object_or_404(Receta, pk=id_receta)
     comentarios = Comentario.objects.filter(receta=dato)
-    return render_to_response('receta.html', {'receta': dato, 'comentarios': comentarios},
+    if request.method == 'POST':
+        formulario = ComentarioForm(request.POST, request.FILES)
+        f_comentario = formulario.save(commit=False)
+        f_comentario.user = request.user
+        f_comentario.receta = Receta.objects.get(id=id_receta)
+        if formulario.is_valid():
+            f_comentario.save()
+            return HttpResponseRedirect('/recetario/'+id_receta+'#comentarios')
+    else:
+        formulario = ComentarioForm
+    return render_to_response('receta.html', {'receta': dato, 'comentarios': comentarios, 'formulario': formulario},
                               context_instance=RequestContext(request))
-
 
 def contacto(request):
     if request.method == 'POST':
@@ -55,17 +61,23 @@ def contacto(request):
 
 
 def nueva_receta(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/ingresar')
     if request.method == 'POST':
         formulario = RecetaForm(request.POST, request.FILES)
+        f_receta = formulario.save(commit=False)
+        f_receta.usuario = request.user
         if formulario.is_valid():
-            formulario.save()
-            return HttpResponseRedirect('/recetario')
+            f_receta.save()
+        return HttpResponseRedirect('/recetario')
     else:
         formulario = RecetaForm
     return render_to_response('recetaform.html', {'formulario': formulario}, context_instance=RequestContext(request))
 
 
 def nuevo_comentario(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/ingresar')
     if request.method == 'POST':
         formulario = ComentarioForm(request.POST, request.FILES)
         if formulario.is_valid():

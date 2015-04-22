@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block titulo %}Usuario desactivado{% endblock %}
 {% block encabezado %}
-    <h1>El usuario no está activo</h1>
 {% endblock %}
 {% block contenido %}
+    <script>
+        $(function () {
+            var li = $('#ingresar_u');
+            li.addClass("active");
+        });
+    </script>
     <p>Ponte en contacto con el administrador para resolver el problema</p>
 {% endblock %}

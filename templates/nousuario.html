@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block titulo %}Usuario desactivado{% endblock %}
 {% block encabezado %}
-    <h1>Error de accesoo</h1>
 {% endblock %}
 {% block contenido %}
+    <script>
+        $(function () {
+            var li = $('#ingresar_u');
+            li.addClass("active");
+        });
+    </script>
     <p>El usuario y la contraseña no coinciden o no existen</p>
 {% endblock %}

@@ -5,13 +5,20 @@
 {% block titulo %} Inicio {% endblock %}
 
 {% block encabezado %}
-    <h1>Recetario</h1>
 {% endblock %}
 
 {% block contenido %}
+
+    <script>
+        $(function () {
+            var li = $('#inicio');
+            li.addClass("active");
+        });
+    </script>
+
     <p>
         Actualmente tenemos registradas:
-        {%  with total=recetas.count %}
+        {% with total=recetas.count %}
             {{ total }} receta{{ total|pluralize }}
         {% endwith %}
     </p>
